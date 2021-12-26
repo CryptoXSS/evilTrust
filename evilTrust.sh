@@ -86,7 +86,10 @@ function startAttack(){
 	fi
 
 	echo -e "\n${yellowColour}[*]${endColour} ${purpleColour}Listando interfaces de red disponibles...${endColour}"; sleep 1
-
+	airmon-ng check kill; sleep 3
+	airmon-ng start wlan0; sleep 3
+	airmon-ng stop wlan0mon; sleep 2
+	
 	# Si la interfaz posee otro nombre, cambiarlo en este punto (consideramos que se llama wlan0 por defecto)
 	airmon-ng start wlan0 > /dev/null 2>&1; interface=$(ifconfig -a | cut -d ' ' -f 1 | xargs | tr ' ' '\n' | tr -d ':' > iface)
 	counter=1; for interface in $(cat iface); do
